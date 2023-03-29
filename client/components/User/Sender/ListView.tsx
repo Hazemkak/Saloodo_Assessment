@@ -45,6 +45,12 @@ function ListView(props: ListViewProps) {
                   Dropoff Address
                 </TableCell>
                 <TableCell style={{ fontWeight: "bold" }} align="right">
+                  Pickup Date
+                </TableCell>
+                <TableCell style={{ fontWeight: "bold" }} align="right">
+                  Dropoff Date
+                </TableCell>
+                <TableCell style={{ fontWeight: "bold" }} align="right">
                   Status
                 </TableCell>
               </TableRow>
@@ -61,6 +67,8 @@ function ListView(props: ListViewProps) {
                     </TableCell>
                     <TableCell align="right">{parcel.pickupAddress}</TableCell>
                     <TableCell align="right">{parcel.dropoffAddress}</TableCell>
+                    <TableCell align="right">{parcel.pickupDate}</TableCell>
+                    <TableCell align="right">{parcel.dropoffDate}</TableCell>
                     <TableCell align="right">{parcel.status}</TableCell>
                   </TableRow>
                 ))}

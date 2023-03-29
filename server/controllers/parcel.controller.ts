@@ -49,6 +49,10 @@ export const updateParcel = async (req: Request, res: Response) => {
         .status(403)
         .json(`Parcel is already assigned to another biker`);
 
+    if (!currParcel.bikerId) parcel.pickupDate = new Date().toUTCString();
+    if (currParcel.status === "picked" && parcel.status === "delivered")
+      parcel.dropoffDate = new Date().toUTCString();
+
     const updatedParcel = parcelsDatabase.updateParcel(parcel.parcelId, parcel);
     res.status(200).json({ parcel: updatedParcel });
   } catch (error) {

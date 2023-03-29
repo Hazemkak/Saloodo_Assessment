@@ -92,6 +92,12 @@ function Biker() {
                     Dropoff Address
                   </TableCell>
                   <TableCell style={{ fontWeight: "bold" }} align="right">
+                    Pickup Date
+                  </TableCell>
+                  <TableCell style={{ fontWeight: "bold" }} align="right">
+                    Dropoff Date
+                  </TableCell>
+                  <TableCell style={{ fontWeight: "bold" }} align="right">
                     Status
                   </TableCell>
                   <TableCell style={{ fontWeight: "bold" }} align="right">
@@ -115,6 +121,8 @@ function Biker() {
                       <TableCell align="right">
                         {parcel.dropoffAddress}
                       </TableCell>
+                      <TableCell align="right">{parcel.pickupDate}</TableCell>
+                      <TableCell align="right">{parcel.dropoffDate}</TableCell>
                       <TableCell align="right">
                         <div
                           style={{
