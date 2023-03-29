@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import database, { Data } from "../db/mockedDatabase";
+import usersDatabase, { Users } from "../db/Users.db";
 
 dotenv.config();
 
@@ -17,9 +17,8 @@ export class AuthHelper {
   static async verifyPassword(
     username: string,
     password: string
-  ): Promise<Data | null> {
-
-    const user = database.findUser(username);
+  ): Promise<Users | null> {
+    const user = usersDatabase.findUserByUsername(username);
     if (!user || !user.password) return null;
 
     const isSame = await bcrypt.compare(

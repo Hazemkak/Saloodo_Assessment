@@ -5,13 +5,14 @@ import Template from "../partials/Template";
 import { UserContext } from "@/context/user";
 import { registerUser } from "./Service/auth.service";
 import { useRouter } from "next/router";
-import { setToken } from "@/utils/auth.util";
+import { setToken, setUserLocally } from "@/utils/auth.util";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Alert from "@mui/material/Alert";
+import ErrorAlert from "../partials/ErrorAlert";
 
 function Register() {
   const [username, setUsername] = React.useState<string>("");
@@ -35,12 +36,14 @@ function Register() {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
-    console.log({ username, password, type });
     e.preventDefault();
+    if (!username || !password) return setError("All fields are required");
+
     registerUser(
       { username, password, type },
       (data: { token: string; user: any }) => {
         setUser(data.user);
+        setUserLocally(data.user);
         setToken(data.token);
         router.push(`/user`);
       },
@@ -50,7 +53,7 @@ function Register() {
 
   return (
     <Template>
-      {error && <Alert severity="error">{error}</Alert>}
+      <ErrorAlert error={error} setError={setError} />
       <br />
       <TextField
         onChange={handleUsernameChange}

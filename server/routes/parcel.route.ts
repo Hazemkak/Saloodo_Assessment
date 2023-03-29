@@ -4,8 +4,9 @@ import { parcelController } from "../controllers/parcel.controller";
 
 const router = Router();
 
-router.post("/create", parcelController.createParcel);
-router.put("/update-parcel-biker", parcelController.updateParcelBiker);
-router.put("/update-parcel-status", parcelController.updateParcelStatus);
-router.get("/parcels/:id", parcelController.getParcelsByUserId);
+router.post("/", parcelController.createParcel);
+router.put("/", parcelController.updateParcel);
+router.get("/pending", parcelController.getPendingParcels);
+router.get("/:id", parcelController.getParcels);
 
+export default router;

@@ -5,9 +5,11 @@ import Template from "../partials/Template";
 import { loginUser } from "./Service/auth.service";
 import { UserContext } from "@/context/user";
 import { useRouter } from "next/router";
-import { setToken } from "@/utils/auth.util";
+import { setToken, setUserLocally } from "@/utils/auth.util";
 import Alert from "@mui/material/Alert";
-import { Data } from "@/types/data.interface";
+import { User } from "@/types/data.interface";
+import Link from "next/link";
+import ErrorAlert from "../partials/ErrorAlert";
 
 function Login() {
   const [username, setUsername] = React.useState<string>("");
@@ -31,10 +33,13 @@ function Login() {
 
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (!username || !password) return setError("All fields are required");
+
     loginUser(
       { username, password },
-      (data: { token: string; user: Data }) => {
+      (data: { token: string; user: User }) => {
         setUser(data.user);
+        setUserLocally(data.user);
         setToken(data.token);
         router.push(`/user`);
       },
@@ -43,7 +48,7 @@ function Login() {
   };
   return (
     <Template>
-      {error && <Alert severity="error">{error}</Alert>}
+      <ErrorAlert error={error} setError={setError} />
       <br />
       <TextField
         onChange={handleUsernameChange}
@@ -72,6 +77,8 @@ function Login() {
       >
         Login
       </Button>
+      <br />
+      <Link href={"/register"}>Register ?</Link>
     </Template>
   );
 }
